@@ -1,130 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/extraLightYellow"
-    android:padding="20dp"
-    tools:context=".ui.game.GameActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/text_cows"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/cows"
-        android:textSize="26sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_bulls" />
+    <data>
+        <variable
+            name="viewModel"
+            type="com.fit.bullsandcows.ui.game.GameViewModel" />
+    </data>
 
-    <TextView
-        android:id="@+id/text_inputGuess"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="_ _ _ _"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/extraLightYellow"
+        android:padding="20dp"
+        tools:context=".ui.game.GameActivity">
 
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="HardcodedText">
+        <TextView
+            android:id="@+id/text_cows"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/cows"
+            android:textSize="26sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_bulls" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/text_inputGuess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/empty_input"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_1"
-                style="@style/button_number_style"
-                android:text="1" />
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="HardcodedText">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_2"
-                style="@style/button_number_style"
-                android:text="2" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_3"
-                style="@style/button_number_style"
-                android:text="3" />
-        </TableRow>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_1"
+                    style="@style/button_number_style"
+                    android:text="1"/>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_2"
+                    style="@style/button_number_style"
+                    android:text="2" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_4"
-                style="@style/button_number_style"
-                android:text="4" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_3"
+                    style="@style/button_number_style"
+                    android:text="3" />
+            </TableRow>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_5"
-                style="@style/button_number_style"
-                android:text="5" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_6"
-                style="@style/button_number_style"
-                android:text="6" />
-        </TableRow>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_4"
+                    style="@style/button_number_style"
+                    android:text="4" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_5"
+                    style="@style/button_number_style"
+                    android:text="5" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_7"
-                style="@style/button_number_style"
-                android:text="7" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_6"
+                    style="@style/button_number_style"
+                    android:text="6" />
+            </TableRow>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_8"
-                style="@style/button_number_style"
-                android:text="8" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_9"
-                style="@style/button_number_style"
-                android:text="9" />
-        </TableRow>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_7"
+                    style="@style/button_number_style"
+                    android:text="7" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_8"
+                    style="@style/button_number_style"
+                    android:text="8" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_clear"
-                style="@style/button_number_style"
-                android:text="C" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_9"
+                    style="@style/button_number_style"
+                    android:text="9" />
+            </TableRow>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_0"
-                style="@style/button_number_style"
-                android:text="0" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_remove"
-                style="@style/button_number_style"
-                android:text="⌫" />
-        </TableRow>
-    </TableLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_clear"
+                    style="@style/button_number_style"
+                    android:text="C" />
 
-    <TextView
-        android:id="@+id/text_bulls"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/bulls"
-        android:textSize="26sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_0"
+                    style="@style/button_number_style"
+                    android:text="0" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_erase"
+                    style="@style/button_number_style"
+                    android:text="⌫" />
+            </TableRow>
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/text_bulls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bulls"
+            android:textSize="26sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
