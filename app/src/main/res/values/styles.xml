@@ -2,7 +2,7 @@
 <resources>
 
     <style name="button_number_style">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">80dp</item>
         <item name="android:layout_marginStart">5dp</item>
         <item name="android:layout_marginEnd">5dp</item>
         <item name="android:layout_height">55dp</item>

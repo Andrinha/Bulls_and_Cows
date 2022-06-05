@@ -1,5 +1,7 @@
 package com.fit.bullsandcows.ui.game
 
-class GameViewModel {
+import androidx.lifecycle.ViewModel
+
+class GameViewModel: ViewModel() {
 
 }
