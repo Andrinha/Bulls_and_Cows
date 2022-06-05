@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Bulls and Cows</string>
+    <string name="cow_logo_image">Cow logo image</string>
 </resources>
