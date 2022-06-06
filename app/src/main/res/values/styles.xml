@@ -45,4 +45,11 @@
         <item name="android:layout_height" tools:ignore="PxUsage">3px</item>
         <item name="android:background">@color/extraLightYellow</item>
     </style>
+
+    <style name="recycler_text_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

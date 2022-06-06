@@ -24,8 +24,8 @@
             android:text="@string/empty_input"
             android:textSize="36sp"
             app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/tableLayout"
+            app:layout_constraintStart_toStartOf="@+id/tableLayout" />
 
         <TableLayout
             android:id="@+id/tableLayout"
@@ -33,7 +33,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             tools:ignore="HardcodedText">
 
             <TableRow
@@ -43,7 +42,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_1"
                     style="@style/button_number_style"
-                    android:text="1"/>
+                    android:text="1" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_2"
@@ -114,19 +113,18 @@
                     android:id="@+id/button_submit"
                     style="@style/button_submit_style"
 
-                    android:text="✓"
-                     />
+                    android:text="✓" />
             </TableRow>
         </TableLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_record"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
 
-            android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/text_inputGuess"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tableLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
@@ -134,35 +132,35 @@
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:background="@drawable/recycle_header"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/recycler_record"
+            app:layout_constraintStart_toStartOf="@+id/recycler_record"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/text_attempt"
+                style="@style/recycler_text_style"
                 android:layout_weight="1"
-                android:text="@string/n"
-                style="@style/recycler_text_style" />
+                android:text="@string/n" />
 
             <TextView
                 android:id="@+id/text_guess"
+                style="@style/recycler_text_style"
                 android:layout_weight="5"
-                android:text="@string/number"
-                style="@style/recycler_text_style"/>
+                android:text="@string/number" />
 
             <TextView
                 android:id="@+id/text_bulls"
+                style="@style/recycler_text_style"
                 android:layout_weight="3"
-                android:text="@string/bulls"
-                style="@style/recycler_text_style"/>
+                android:text="@string/bulls" />
 
             <TextView
                 android:id="@+id/text_cows"
+                style="@style/recycler_text_style"
                 android:layout_weight="3"
-                android:text="@string/cows"
-                style="@style/recycler_text_style"/>
+                android:text="@string/cows" />
 
         </LinearLayout>
 

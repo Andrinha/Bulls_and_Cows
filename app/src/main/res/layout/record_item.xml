@@ -33,31 +33,24 @@
 
                 <TextView
                     android:id="@+id/text_attempt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    style="@style/recycler_text_style"
                     android:layout_weight="1"/>
 
                 <TextView
+                    android:id="@+id/text_guess"
+                    style="@style/recycler_text_style"
+                    android:layout_weight="5"/>
+
+                <TextView
                     android:id="@+id/text_bulls"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="2"/>
+                    style="@style/recycler_text_style"
+                    android:layout_weight="3"/>
 
                 <TextView
                     android:id="@+id/text_cows"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="2"/>
+                    style="@style/recycler_text_style"
+                    android:layout_weight="3"/>
 
-                <TextView
-                    android:id="@+id/text_guess"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="5"/>
             </LinearLayout>
 
 
