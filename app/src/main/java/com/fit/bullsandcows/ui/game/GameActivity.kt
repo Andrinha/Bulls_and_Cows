@@ -76,9 +76,10 @@ class GameActivity : AppCompatActivity() {
         view.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    viewModel.getBullsAndCows(viewModel.secret.value!!, viewModel.guess.value!!)
+                    viewModel.getHint(viewModel.secret.value!!, viewModel.guess.value!!)
                     viewModel.guess.value = ""
                     disableButtons()
+                    viewModel.attempts.value = viewModel.attempts.value?.plus(1)
                 }
             }
             v.performClick()
@@ -146,6 +147,9 @@ class GameActivity : AppCompatActivity() {
         }
         viewModel.cows.observe(this) {
             binding.textCows.text = getString(R.string.cows, it)
+        }
+        viewModel.attempts.observe(this) {
+            binding.textAttempts.text = getString(R.string.attempts, it.toString())
         }
     }
 

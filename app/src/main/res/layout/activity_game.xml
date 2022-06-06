@@ -17,6 +17,15 @@
         tools:context=".ui.game.GameActivity">
 
         <TextView
+            android:id="@+id/text_bulls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bulls"
+            android:textSize="26sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/text_cows"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,6 +34,15 @@
             android:textSize="26sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_bulls" />
+
+        <TextView
+            android:id="@+id/text_attempts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            android:text="@string/attempts"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/text_inputGuess"
@@ -129,13 +147,5 @@
             </TableRow>
         </TableLayout>
 
-        <TextView
-            android:id="@+id/text_bulls"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bulls"
-            android:textSize="26sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
