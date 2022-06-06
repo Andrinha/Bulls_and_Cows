@@ -4,18 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import com.fit.bullsandcows.R
 import com.fit.bullsandcows.databinding.ActivityGameBinding
-import com.fit.bullsandcows.databinding.ActivityMainBinding
 
 class GameActivity : AppCompatActivity() {
 
     private var _binding: ActivityGameBinding? = null
     private val binding get() = _binding!!
-    lateinit var viewModel: GameViewModel
+    private lateinit var viewModel: GameViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +32,10 @@ class GameActivity : AppCompatActivity() {
         setNumberTouchListener(binding.button8, 8)
         setNumberTouchListener(binding.button9, 9)
         setClearTouchListener(binding.buttonClear)
-        setEraseTouchListener(binding.buttonErase)
+        setSubmitTouchListener(binding.buttonSubmit)
         //endregion
+
+        disableButtons()
     }
 
     // Touch listener for number buttons
@@ -44,12 +43,13 @@ class GameActivity : AppCompatActivity() {
         view.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    if (viewModel.inputString.value?.length!! < 4)
-                    {
-                        viewModel.inputString.value += number.toString()
-                        disableUsedButtons()
+                    val guess = viewModel.guess.value
+                    if (guess != null) {
+                        if (guess.length < 4) {
+                            viewModel.guess.value += number.toString()
+                            disableButtons()
+                        }
                     }
-
                 }
             }
             v.performClick()
@@ -62,8 +62,8 @@ class GameActivity : AppCompatActivity() {
         view.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    viewModel.inputString.value = ""
-                    disableUsedButtons()
+                    viewModel.guess.value = ""
+                    disableButtons()
                 }
             }
             v.performClick()
@@ -72,16 +72,13 @@ class GameActivity : AppCompatActivity() {
     }
 
     // Touch listener for erase button
-    private fun setEraseTouchListener(view: View) {
+    private fun setSubmitTouchListener(view: View) {
         view.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    val len = viewModel.inputString.value?.length!!
-                    if (len != 0)
-                    {
-                        viewModel.inputString.value = viewModel.inputString.value!!.substring(0, len - 1)
-                        disableUsedButtons()
-                    }
+                    viewModel.getBullsAndCows(viewModel.secret.value!!, viewModel.guess.value!!)
+                    viewModel.guess.value = ""
+                    disableButtons()
                 }
             }
             v.performClick()
@@ -102,7 +99,7 @@ class GameActivity : AppCompatActivity() {
     }
 
     // Disable used buttons to prevent repeated digits
-    private fun disableUsedButtons() {
+    private fun disableButtons() {
 
         // Enable all buttons
         binding.button0.isEnabled = true
@@ -115,10 +112,11 @@ class GameActivity : AppCompatActivity() {
         binding.button7.isEnabled = true
         binding.button8.isEnabled = true
         binding.button9.isEnabled = true
+        binding.buttonSubmit.isEnabled = true
 
-        // Disable buttons that were used in livedata
-        for (i in 0 until viewModel.inputString.value!!.length) {
-            when(viewModel.inputString.value!![i]) {
+        // Disable number buttons that were used in livedata
+        for (i in 0 until viewModel.guess.value!!.length) {
+            when(viewModel.guess.value!![i]) {
                 '0' -> binding.button0.isEnabled = false
                 '1' -> binding.button1.isEnabled = false
                 '2' -> binding.button2.isEnabled = false
@@ -131,13 +129,24 @@ class GameActivity : AppCompatActivity() {
                 '9' -> binding.button9.isEnabled = false
             }
         }
+
+        // Disable submit button if guess is not ready
+        if (viewModel.guess.value!!.length < 4) {
+            binding.buttonSubmit.isEnabled = false
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.inputString.observe(this, Observer {
+        viewModel.guess.observe(this) {
             binding.textInputGuess.text = convertString(it)
-        })
+        }
+        viewModel.bulls.observe(this) {
+            binding.textBulls.text = getString(R.string.bulls, it)
+        }
+        viewModel.cows.observe(this) {
+            binding.textCows.text = getString(R.string.cows, it)
+        }
     }
 
     override fun onDestroy() {

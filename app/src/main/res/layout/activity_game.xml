@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:text="@string/empty_input"
-            android:textSize="28sp"
+            android:textSize="36sp"
             app:layout_constraintBottom_toTopOf="@+id/tableLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -121,9 +121,11 @@
                     android:text="0" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_erase"
-                    style="@style/button_number_style"
-                    android:text="⌫" />
+                    android:id="@+id/button_submit"
+                    style="@style/button_submit_style"
+
+                    android:text="✓"
+                     />
             </TableRow>
         </TableLayout>
 

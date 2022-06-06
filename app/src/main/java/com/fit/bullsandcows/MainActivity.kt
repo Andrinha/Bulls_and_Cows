@@ -2,7 +2,6 @@ package com.fit.bullsandcows
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.fit.bullsandcows.databinding.ActivityMainBinding
 import com.fit.bullsandcows.ui.game.GameActivity

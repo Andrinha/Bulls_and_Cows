@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Bulls and Cows</string>
     <string name="cow_logo_image">Cow logo image</string>
-    <string name="bulls">Bulls:</string>
-    <string name="cows">Cows:</string>
+    <string name="bulls">Bulls: %1$s</string>
+    <string name="cows">Cows: %1$s</string>
     <string name="empty_input">_ _ _ _</string>
 </resources>
