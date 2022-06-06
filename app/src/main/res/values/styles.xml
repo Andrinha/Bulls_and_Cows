@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="button_number_style">
         <item name="android:layout_width">80dp</item>
@@ -28,5 +28,21 @@
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="button_menu_landscape_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height" tools:ignore="PxUsage">3px</item>
+        <item name="android:background">@color/extraLightYellow</item>
     </style>
 </resources>

@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.fit.bullsandcows.R
+import com.fit.bullsandcows.data.Record
 import com.fit.bullsandcows.databinding.ActivityGameBinding
 
 class GameActivity : AppCompatActivity() {
@@ -35,6 +37,8 @@ class GameActivity : AppCompatActivity() {
         setSubmitTouchListener(binding.buttonSubmit)
         //endregion
 
+        binding.recyclerRecord.layoutManager = LinearLayoutManager(this)
+        binding.recyclerRecord.adapter = viewModel.adapter
         disableButtons()
     }
 
@@ -77,9 +81,16 @@ class GameActivity : AppCompatActivity() {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     viewModel.getHint(viewModel.secret.value!!, viewModel.guess.value!!)
+                    viewModel.attempts.value = viewModel.attempts.value?.plus(1)
+                    viewModel.adapter.addRecord(
+                        Record(
+                            viewModel.attempts.value.toString(),
+                            viewModel.bulls.value!!,
+                            viewModel.cows.value!!,
+                            viewModel.guess.value!!))
                     viewModel.guess.value = ""
                     disableButtons()
-                    viewModel.attempts.value = viewModel.attempts.value?.plus(1)
+                    binding.recyclerRecord.scrollToPosition(viewModel.adapter.itemCount - 1)
                 }
             }
             v.performClick()
@@ -141,15 +152,6 @@ class GameActivity : AppCompatActivity() {
         super.onStart()
         viewModel.guess.observe(this) {
             binding.textInputGuess.text = convertString(it)
-        }
-        viewModel.bulls.observe(this) {
-            binding.textBulls.text = getString(R.string.bulls, it)
-        }
-        viewModel.cows.observe(this) {
-            binding.textCows.text = getString(R.string.cows, it)
-        }
-        viewModel.attempts.observe(this) {
-            binding.textAttempts.text = getString(R.string.attempts, it.toString())
         }
     }
 
