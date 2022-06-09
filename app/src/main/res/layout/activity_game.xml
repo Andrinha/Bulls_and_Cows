@@ -148,21 +148,21 @@
 
             <TextView
                 android:id="@+id/text_guess"
-                android:layout_weight="5"
-                android:text="@string/number"
-                style="@style/recycler_text_style"/>
+                style="@style/recycler_text_style"
+                android:layout_weight="4"
+                android:text="@string/number" />
 
             <TextView
                 android:id="@+id/text_bulls"
+                style="@style/recycler_text_style"
                 android:layout_weight="3"
-                android:text="@string/bulls"
-                style="@style/recycler_text_style"/>
+                android:text="@string/bulls" />
 
             <TextView
                 android:id="@+id/text_cows"
+                style="@style/recycler_text_style"
                 android:layout_weight="3"
-                android:text="@string/cows"
-                style="@style/recycler_text_style"/>
+                android:text="@string/cows" />
 
         </LinearLayout>
 

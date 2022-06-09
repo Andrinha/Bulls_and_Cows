@@ -1,12 +1,12 @@
 package com.fit.bullsandcows.ui.game
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fit.bullsandcows.R
 import com.fit.bullsandcows.data.Record
 import com.fit.bullsandcows.databinding.ActivityGameBinding
 
@@ -21,6 +21,7 @@ class GameActivity : AppCompatActivity() {
         _binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[GameViewModel::class.java]
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
         //region Set listeners to buttons
         setNumberTouchListener(binding.button0, 0)

@@ -39,7 +39,7 @@
                 <TextView
                     android:id="@+id/text_guess"
                     style="@style/recycler_text_style"
-                    android:layout_weight="5"/>
+                    android:layout_weight="4"/>
 
                 <TextView
                     android:id="@+id/text_bulls"

@@ -10,4 +10,13 @@
     <string name="setting">setting</string>
     <string name="number">Number</string>
     <string name="n">N</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Screen -->
+    <string name="restrictions_header">Restrictions</string>
+    <string name="other_header">Other</string>
+    <string name="sync_header">Sync</string>
+    <string name="signature_title">Your signature</string>
+    <string name="restrictions_title">Game restrictions</string>
+
 </resources>
