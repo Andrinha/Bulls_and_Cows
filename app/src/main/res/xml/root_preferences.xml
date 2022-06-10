@@ -19,6 +19,13 @@
             android:singleLine="true"
             android:title="Number of attempts"
             app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            android:defaultValue="30000"
+            android:key="time"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Max time (milliseconds)"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 

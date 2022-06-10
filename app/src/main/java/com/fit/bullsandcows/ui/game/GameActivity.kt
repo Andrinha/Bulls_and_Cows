@@ -1,5 +1,6 @@
 package com.fit.bullsandcows.ui.game
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.fit.bullsandcows.R
 import com.fit.bullsandcows.data.Record
 import com.fit.bullsandcows.databinding.ActivityGameBinding
 
@@ -15,13 +17,30 @@ class GameActivity : AppCompatActivity() {
     private var _binding: ActivityGameBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: GameViewModel
+    private lateinit var prefs: SharedPreferences
+    private var maxAttempts: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[GameViewModel::class.java]
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+
+        //Get app preferences from settings
+        prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        when(prefs.getString("restrictions", "no")) {
+            "attempt" -> {
+                binding.restrictionsLayout.visibility = View.VISIBLE
+                maxAttempts = prefs.getString("attempts_number", "0")!!.toInt()
+            }
+            "time" -> {
+                binding.restrictionsLayout.visibility = View.VISIBLE
+                if (!viewModel.isRunning) {
+                    val time = prefs.getString("time", "-1")
+                    viewModel.time.value = viewModel.dateFormatter(time!!.toLong())
+                }
+            }
+        }
 
         //region Set listeners to buttons
         setNumberTouchListener(binding.button0, 0)
@@ -40,7 +59,6 @@ class GameActivity : AppCompatActivity() {
 
         binding.recyclerRecord.layoutManager = LinearLayoutManager(this)
         binding.recyclerRecord.adapter = viewModel.adapter
-        disableButtons()
     }
 
     // Touch listener for number buttons
@@ -48,12 +66,9 @@ class GameActivity : AppCompatActivity() {
         view.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    val guess = viewModel.guess.value
-                    if (guess != null) {
-                        if (guess.length < 4) {
-                            viewModel.guess.value += number.toString()
-                            disableButtons()
-                        }
+                    if (viewModel.guess.value!!.length < 4) {
+                        viewModel.guess.value += number.toString()
+                        startCountDownTimer()
                     }
                 }
             }
@@ -68,7 +83,6 @@ class GameActivity : AppCompatActivity() {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     viewModel.guess.value = ""
-                    disableButtons()
                 }
             }
             v.performClick()
@@ -76,26 +90,33 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    // Touch listener for erase button
+    // Touch listener for submit button
     private fun setSubmitTouchListener(view: View) {
         view.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    viewModel.getHint(viewModel.secret.value!!, viewModel.guess.value!!)
-                    viewModel.attempts.value = viewModel.attempts.value?.plus(1)
-                    viewModel.adapter.addRecord(
-                        Record(
+                    viewModel.getHint()
+                    viewModel.attempts.value = viewModel.attempts.value!!.inc()
+                    viewModel.adapter.addRecord(Record(
                             viewModel.attempts.value.toString(),
                             viewModel.bulls.value!!,
                             viewModel.cows.value!!,
                             viewModel.guess.value!!))
                     viewModel.guess.value = ""
-                    disableButtons()
                     binding.recyclerRecord.scrollToPosition(viewModel.adapter.itemCount - 1)
                 }
             }
             v.performClick()
             false
+        }
+    }
+
+    private fun startCountDownTimer() {
+        if (prefs.getString("restrictions", "no") == "time") {
+            val time = prefs.getString("time", "-1")
+            if (time != null) {
+                viewModel.startCountDownTimer(time.toLong())
+            }
         }
     }
 
@@ -111,23 +132,21 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    // Disable used buttons to prevent repeated digits
-    private fun disableButtons() {
+    private fun setButtonStatus(isEnabled: Boolean) {
+        binding.button0.isEnabled = isEnabled
+        binding.button1.isEnabled = isEnabled
+        binding.button2.isEnabled = isEnabled
+        binding.button3.isEnabled = isEnabled
+        binding.button4.isEnabled = isEnabled
+        binding.button5.isEnabled = isEnabled
+        binding.button6.isEnabled = isEnabled
+        binding.button7.isEnabled = isEnabled
+        binding.button8.isEnabled = isEnabled
+        binding.button9.isEnabled = isEnabled
+    }
 
-        // Enable all buttons
-        binding.button0.isEnabled = true
-        binding.button1.isEnabled = true
-        binding.button2.isEnabled = true
-        binding.button3.isEnabled = true
-        binding.button4.isEnabled = true
-        binding.button5.isEnabled = true
-        binding.button6.isEnabled = true
-        binding.button7.isEnabled = true
-        binding.button8.isEnabled = true
-        binding.button9.isEnabled = true
-        binding.buttonSubmit.isEnabled = true
-
-        // Disable number buttons that were used in livedata
+    // Disable number buttons that were used in livedata
+    private fun disableUsedButtons() {
         for (i in 0 until viewModel.guess.value!!.length) {
             when(viewModel.guess.value!![i]) {
                 '0' -> binding.button0.isEnabled = false
@@ -142,18 +161,36 @@ class GameActivity : AppCompatActivity() {
                 '9' -> binding.button9.isEnabled = false
             }
         }
-
-        // Disable submit button if guess is not ready
-        if (viewModel.guess.value!!.length < 4) {
-            binding.buttonSubmit.isEnabled = false
-        }
     }
 
     override fun onStart() {
         super.onStart()
+
+        // Attach the observers to the LiveData
         viewModel.guess.observe(this) {
             binding.textInputGuess.text = convertString(it)
+            binding.buttonSubmit.isEnabled = it.length >= 4
+            if (it.length == 4) {
+                setButtonStatus(false)
+            } else {
+                setButtonStatus(true)
+                disableUsedButtons()
+            }
         }
+        when(prefs.getString("restrictions", "no")) {
+            "attempt" -> {
+                viewModel.attempts.observe(this) {
+                    binding.textRestriction.text = getString(R.string.attempts, (maxAttempts - it).toString())
+                }
+            }
+            "time" -> {
+                viewModel.time.observe(this) {
+                    binding.textRestriction.text = it
+                }
+            }
+        }
+
+
     }
 
     override fun onDestroy() {

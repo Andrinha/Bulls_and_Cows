@@ -1,18 +1,49 @@
 package com.fit.bullsandcows.ui.game
 
+import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class GameViewModel: ViewModel() {
     var attempts = MutableLiveData(0)
     var bulls = MutableLiveData("0")
     var cows = MutableLiveData("0")
     var guess = MutableLiveData("")
-    var secret = MutableLiveData<String>()
+    private var secret = MutableLiveData<String>()
+    var time = MutableLiveData("0")
     val adapter = RecordAdapter()
     private val digits = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+    var isRunning = false
 
     init {
+        newSecret()
+    }
+
+    fun startCountDownTimer(timeMillis: Long) {
+        if (timeMillis <= 0 || isRunning)
+            return
+
+        object : CountDownTimer(timeMillis, 20) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                time.value = dateFormatter(millisUntilFinished)
+                isRunning = true
+            }
+
+            override fun onFinish() {
+                time.value = dateFormatter(0)
+            }
+        }.start()
+    }
+
+    fun dateFormatter(milliseconds: Long): String {
+        return SimpleDateFormat("ss:SS", Locale.getDefault()).format(Date(milliseconds)).toString()
+    }
+
+    // Generate random number
+    private fun newSecret() {
         digits.shuffle()
         val sb = StringBuilder()
         for (i in 0..3) {
@@ -21,7 +52,9 @@ class GameViewModel: ViewModel() {
         secret.value = sb.toString()
     }
 
-    fun getHint(secret: String, guess: String) {
+    fun getHint() {
+        val secret = this.secret.value!!
+        val guess = this.guess.value!!
         var bulls = 0
         var cows = 0
         val numbers = IntArray(10)
