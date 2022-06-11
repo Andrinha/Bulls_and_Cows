@@ -25,4 +25,10 @@ class RecordAdapter: RecyclerView.Adapter<RecordHolder>() {
         recordList.add(record)
         notifyItemInserted(recordList.size)
     }
+
+    fun clear() {
+        val size: Int = recordList.size
+        recordList.clear()
+        notifyItemRangeRemoved(0, size)
+    }
 }

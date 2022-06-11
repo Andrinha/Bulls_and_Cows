@@ -2,6 +2,7 @@ package com.fit.bullsandcows.ui.game
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.InputType
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fit.bullsandcows.R
 import com.fit.bullsandcows.data.Record
 import com.fit.bullsandcows.databinding.ActivityGameBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
+
 
 class GameActivity : AppCompatActivity() {
 
@@ -18,7 +22,6 @@ class GameActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     private lateinit var viewModel: GameViewModel
     private lateinit var prefs: SharedPreferences
-    private var maxAttempts: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +34,7 @@ class GameActivity : AppCompatActivity() {
         when(prefs.getString("restrictions", "no")) {
             "attempt" -> {
                 binding.restrictionsLayout.visibility = View.VISIBLE
-                maxAttempts = prefs.getString("attempts_number", "0")!!.toInt()
+                viewModel.maxAttempts = prefs.getString("attempts_number", "0")!!.toInt()
             }
             "time" -> {
                 binding.restrictionsLayout.visibility = View.VISIBLE
@@ -59,6 +62,10 @@ class GameActivity : AppCompatActivity() {
 
         binding.recyclerRecord.layoutManager = LinearLayoutManager(this)
         binding.recyclerRecord.adapter = viewModel.adapter
+
+        if (viewModel.name.value == null) {
+            showAlertWithTextInput()
+        }
     }
 
     // Touch listener for number buttons
@@ -104,6 +111,10 @@ class GameActivity : AppCompatActivity() {
                             viewModel.guess.value!!))
                     viewModel.guess.value = ""
                     binding.recyclerRecord.scrollToPosition(viewModel.adapter.itemCount - 1)
+
+                    if (viewModel.bulls.value == "4") {
+                        showRetryAlert(getString(R.string.win))
+                    }
                 }
             }
             v.performClick()
@@ -163,6 +174,39 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
+    private fun showAlertWithTextInput() {
+        val input = TextInputEditText(this)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        input.hint = "Name"
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Set your name")
+            .setView(input)
+            .setCancelable(false)
+            .setPositiveButton("OK") { _, _ ->
+                viewModel.name.value = input.text.toString()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.cancel()
+                this.finish()
+            }
+            .show()
+    }
+
+    private fun showRetryAlert(title: String) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(title)
+            .setMessage(resources.getString(R.string.start_again_message))
+            .setCancelable(false)
+            .setNegativeButton(resources.getString(R.string.cancel)) { _, _ ->
+                this.finish()
+            }
+            .setPositiveButton(resources.getString(R.string.start)) { _, _ ->
+                viewModel.recreate()
+            }
+            .show()
+    }
+
     override fun onStart() {
         super.onStart()
 
@@ -177,20 +221,25 @@ class GameActivity : AppCompatActivity() {
                 disableUsedButtons()
             }
         }
-        when(prefs.getString("restrictions", "no")) {
+        when (prefs.getString("restrictions", "no")) {
             "attempt" -> {
                 viewModel.attempts.observe(this) {
-                    binding.textRestriction.text = getString(R.string.attempts, (maxAttempts - it).toString())
+                    binding.textRestriction.text =
+                        getString(R.string.attempts, viewModel.maxAttempts - it)
+                    if (it >= viewModel.maxAttempts) {
+                        showRetryAlert(getString(R.string.defeat))
+                    }
                 }
             }
             "time" -> {
                 viewModel.time.observe(this) {
                     binding.textRestriction.text = it
+                    if (it == "00:00") {
+                        showRetryAlert(getString(R.string.defeat))
+                    }
                 }
             }
         }
-
-
     }
 
     override fun onDestroy() {

@@ -13,9 +13,11 @@ class GameViewModel: ViewModel() {
     var guess = MutableLiveData("")
     private var secret = MutableLiveData<String>()
     var time = MutableLiveData("0")
-    val adapter = RecordAdapter()
+    var name = MutableLiveData<String>()
+    var adapter = RecordAdapter()
     private val digits = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
     var isRunning = false
+    var maxAttempts = 0
 
     init {
         newSecret()
@@ -66,5 +68,13 @@ class GameViewModel: ViewModel() {
         }
         this.bulls.value = bulls.toString()
         this.cows.value = cows.toString()
+    }
+
+    fun recreate() {
+        newSecret()
+        adapter.clear()
+        attempts.value = 0
+        guess.value = ""
+        isRunning = false
     }
 }

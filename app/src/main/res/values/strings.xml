@@ -4,13 +4,17 @@
     <string name="bulls">Bulls</string>
     <string name="cows">Cows</string>
     <string name="empty_input">_ _ _ _</string>
-    <string name="attempts">Attempts left: %1$s</string>
+    <string name="attempts">Attempts left: %1$d</string>
     <string name="start">start</string>
     <string name="statistics">statistics</string>
     <string name="setting">setting</string>
     <string name="number">Number</string>
     <string name="n">N</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="start_again_message">Do you want to start again?</string>
+    <string name="cancel">Cancel</string>
+    <string name="defeat">You lose!</string>
+    <string name="win">You won!🎊🥳🎉</string>
 
     <!-- Preference Screen -->
     <string name="restrictions_header">Restrictions</string>
