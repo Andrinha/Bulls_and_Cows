@@ -15,10 +15,12 @@
         tools:targetApi="31">
         <activity
             android:name=".ui.settings.SettingsActivity"
+            android:parentActivityName="com.fit.bullsandcows.MainActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".ui.game.GameActivity"
+            android:theme="@style/Theme.BullsAndCows.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

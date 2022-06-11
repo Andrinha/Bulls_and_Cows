@@ -13,14 +13,14 @@
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
-            android:defaultValue="10"
+            android:defaultValue="15"
             android:key="attempts_number"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:title="Number of attempts"
             app:useSimpleSummaryProvider="true" />
         <EditTextPreference
-            android:defaultValue="30000"
+            android:defaultValue="45000"
             android:key="time"
             android:selectAllOnFocus="true"
             android:singleLine="true"
