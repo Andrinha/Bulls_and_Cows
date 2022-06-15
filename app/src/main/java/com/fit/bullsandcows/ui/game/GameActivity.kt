@@ -7,13 +7,21 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.fit.bullsandcows.R
+import com.fit.bullsandcows.data.Attempt
 import com.fit.bullsandcows.data.Record
+import com.fit.bullsandcows.data.RecordDatabase
 import com.fit.bullsandcows.databinding.ActivityGameBinding
+import com.fit.bullsandcows.repository.RecordRepository
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class GameActivity : AppCompatActivity() {
@@ -28,7 +36,6 @@ class GameActivity : AppCompatActivity() {
         _binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[GameViewModel::class.java]
-
         //Get app preferences from settings
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
         when(prefs.getString("restrictions", "no")) {
@@ -77,6 +84,9 @@ class GameActivity : AppCompatActivity() {
                         viewModel.guess.value += number.toString()
                         startCountDownTimer()
                     }
+                    if (viewModel.startTime.value == null) {
+                        viewModel.startTime.value = System.currentTimeMillis()
+                    }
                 }
             }
             v.performClick()
@@ -104,17 +114,13 @@ class GameActivity : AppCompatActivity() {
                 MotionEvent.ACTION_DOWN -> {
                     viewModel.getHint()
                     viewModel.attempts.value = viewModel.attempts.value!!.inc()
-                    viewModel.adapter.addRecord(Record(
+                    viewModel.adapter.addRecord(Attempt(
                             viewModel.attempts.value.toString(),
                             viewModel.bulls.value!!,
                             viewModel.cows.value!!,
                             viewModel.guess.value!!))
                     viewModel.guess.value = ""
                     binding.recyclerRecord.scrollToPosition(viewModel.adapter.itemCount - 1)
-
-                    if (viewModel.bulls.value == "4") {
-                        showRetryAlert(getString(R.string.win))
-                    }
                 }
             }
             v.performClick()
@@ -207,6 +213,29 @@ class GameActivity : AppCompatActivity() {
             .show()
     }
 
+    private fun insertDataToDatabase() {
+        val name = viewModel.name.value!!
+        val time = System.currentTimeMillis() - viewModel.startTime.value!!
+        val attempts = viewModel.attempts.value!! + 1
+
+        // Create Record Object
+        val record = Record(0, name, viewModel.dateFormatter(time), attempts.toString())
+        // Add Data to Database
+        addRecord(record)
+        //viewModel.addRecord(record)
+    }
+
+    private fun addRecord(record: Record){
+        val db = Room.databaseBuilder(
+            applicationContext,
+            RecordDatabase::class.java, "record_database"
+        ).allowMainThreadQueries().build()
+
+        val recordDao = db.recordDao()
+
+        recordDao.addRecord(record)
+    }
+
     override fun onStart() {
         super.onStart()
 
@@ -221,6 +250,17 @@ class GameActivity : AppCompatActivity() {
                 disableUsedButtons()
             }
         }
+        //TODO: Description
+        viewModel.bulls.observe(this){
+            if (it == "4") {
+                showRetryAlert(getString(R.string.win))
+                if (!viewModel.isRecordWrite) {
+                    insertDataToDatabase()
+                    viewModel.isRecordWrite = true
+                }
+            }
+        }
+        //TODO: Description
         when (prefs.getString("restrictions", "no")) {
             "attempt" -> {
                 viewModel.attempts.observe(this) {

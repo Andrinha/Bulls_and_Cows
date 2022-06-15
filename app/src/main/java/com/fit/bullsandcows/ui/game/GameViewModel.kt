@@ -13,11 +13,13 @@ class GameViewModel: ViewModel() {
     var guess = MutableLiveData("")
     private var secret = MutableLiveData<String>()
     var time = MutableLiveData("0")
+    var startTime = MutableLiveData<Long>()
     var name = MutableLiveData<String>()
-    var adapter = RecordAdapter()
+    var adapter = AttemptAdapter()
     private val digits = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
     var isRunning = false
     var maxAttempts = 0
+    var isRecordWrite = false
 
     init {
         newSecret()
@@ -41,7 +43,10 @@ class GameViewModel: ViewModel() {
     }
 
     fun dateFormatter(milliseconds: Long): String {
-        return SimpleDateFormat("ss:SS", Locale.getDefault()).format(Date(milliseconds)).toString()
+        return if (milliseconds > 60000)
+            SimpleDateFormat("mm:ss:SS", Locale.getDefault()).format(Date(milliseconds)).toString()
+        else
+            SimpleDateFormat("ss:SS", Locale.getDefault()).format(Date(milliseconds)).toString()
     }
 
     // Generate random number
@@ -76,5 +81,6 @@ class GameViewModel: ViewModel() {
         attempts.value = 0
         guess.value = ""
         isRunning = false
+        isRecordWrite = false
     }
 }

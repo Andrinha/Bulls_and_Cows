@@ -32,22 +32,22 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/text_id"
+                    android:id="@+id/text_attempt"
                     style="@style/recycler_text_style"
                     android:layout_weight="1"/>
 
                 <TextView
-                    android:id="@+id/text_name"
+                    android:id="@+id/text_guess"
+                    style="@style/recycler_text_style"
+                    android:layout_weight="4"/>
+
+                <TextView
+                    android:id="@+id/text_bulls"
                     style="@style/recycler_text_style"
                     android:layout_weight="3"/>
 
                 <TextView
-                    android:id="@+id/text_attempts"
-                    style="@style/recycler_text_style"
-                    android:layout_weight="3"/>
-
-                <TextView
-                    android:id="@+id/text_time"
+                    android:id="@+id/text_cows"
                     style="@style/recycler_text_style"
                     android:layout_weight="3"/>
 

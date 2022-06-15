@@ -14,14 +14,19 @@
         android:theme="@style/Theme.BullsAndCows"
         tools:targetApi="31">
         <activity
-            android:name=".ui.settings.SettingsActivity"
-            android:parentActivityName="com.fit.bullsandcows.MainActivity"
+            android:name=".ui.statistics.StatisticsActivity"
+            android:label="Game statistics"
             android:exported="false"
-            android:label="@string/title_activity_settings" />
+            android:parentActivityName="com.fit.bullsandcows.MainActivity"/>
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="com.fit.bullsandcows.MainActivity" />
         <activity
             android:name=".ui.game.GameActivity"
-            android:theme="@style/Theme.BullsAndCows.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.BullsAndCows.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

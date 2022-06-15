@@ -1,4 +1,4 @@
-package com.fit.bullsandcows.ui.game
+package com.fit.bullsandcows.ui.statistics
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -24,11 +24,5 @@ class RecordAdapter: RecyclerView.Adapter<RecordHolder>() {
     fun addRecord(record: Record) {
         recordList.add(record)
         notifyItemInserted(recordList.size)
-    }
-
-    fun clear() {
-        val size: Int = recordList.size
-        recordList.clear()
-        notifyItemRangeRemoved(0, size)
     }
 }

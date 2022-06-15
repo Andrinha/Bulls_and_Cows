@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fit.bullsandcows.databinding.ActivityMainBinding
 import com.fit.bullsandcows.ui.game.GameActivity
 import com.fit.bullsandcows.ui.settings.SettingsActivity
+import com.fit.bullsandcows.ui.statistics.StatisticsActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +20,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonStart.setOnClickListener {
             val intent = Intent(this, GameActivity::class.java)
+            startActivity(intent)
+        }
+        binding.buttonStats.setOnClickListener {
+            val intent = Intent(this, StatisticsActivity::class.java)
             startActivity(intent)
         }
         binding.buttonSettings.setOnClickListener {

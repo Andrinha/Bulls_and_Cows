@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/extraLightYellow"
+        android:background="@color/color_12"
         android:padding="20dp"
         tools:context=".ui.game.GameActivity">
 
@@ -103,6 +103,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_clear"
                     style="@style/button_number_style"
+                    android:backgroundTint="@color/color_10"
                     android:text="C" />
 
                 <com.google.android.material.button.MaterialButton
@@ -113,9 +114,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_submit"
                     style="@style/button_submit_style"
-
-                    android:text="✓"
-                     />
+                    android:text="✓" />
             </TableRow>
         </TableLayout>
 
