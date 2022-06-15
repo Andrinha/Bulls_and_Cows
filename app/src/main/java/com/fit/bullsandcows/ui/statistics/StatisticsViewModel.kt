@@ -16,8 +16,8 @@ class StatisticsViewModel(application: Application): AndroidViewModel(applicatio
     private val repository: RecordRepository
 
     init {
-        val recordDao = RecordDatabase.getDatabase(application).recordDao()
-        repository = RecordRepository(recordDao)
+        val userDao = RecordDatabase.getDatabase(application).recordDao()
+        repository = RecordRepository(userDao)
         readAllData = repository.readAllData
     }
 

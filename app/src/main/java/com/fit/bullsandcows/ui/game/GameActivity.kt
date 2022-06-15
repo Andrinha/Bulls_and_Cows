@@ -7,7 +7,6 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
@@ -16,12 +15,8 @@ import com.fit.bullsandcows.data.Attempt
 import com.fit.bullsandcows.data.Record
 import com.fit.bullsandcows.data.RecordDatabase
 import com.fit.bullsandcows.databinding.ActivityGameBinding
-import com.fit.bullsandcows.repository.RecordRepository
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 class GameActivity : AppCompatActivity() {
@@ -222,7 +217,6 @@ class GameActivity : AppCompatActivity() {
         val record = Record(0, name, viewModel.dateFormatter(time), attempts.toString())
         // Add Data to Database
         addRecord(record)
-        //viewModel.addRecord(record)
     }
 
     private fun addRecord(record: Record){
@@ -250,7 +244,7 @@ class GameActivity : AppCompatActivity() {
                 disableUsedButtons()
             }
         }
-        //TODO: Description
+        // Observe bulls to check if player wins
         viewModel.bulls.observe(this){
             if (it == "4") {
                 showRetryAlert(getString(R.string.win))
@@ -260,7 +254,7 @@ class GameActivity : AppCompatActivity() {
                 }
             }
         }
-        //TODO: Description
+        // Observe chosen restriction values
         when (prefs.getString("restrictions", "no")) {
             "attempt" -> {
                 viewModel.attempts.observe(this) {
