@@ -21,7 +21,7 @@
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:exported="false"
-            android:label="@string/title_activity_settings"
+            android:label="Settings"
             android:parentActivityName="com.fit.bullsandcows.MainActivity" />
         <activity
             android:name=".ui.game.GameActivity"
