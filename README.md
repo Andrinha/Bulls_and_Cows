@@ -19,12 +19,13 @@
 
 <details>
   <summary>Скриншоты</summary>
- 
-  1. <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/6.jpg" width="250"/>
-  2. <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/1.jpg" width="250"/>
-  3. <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/2.jpg" width="250"/>
-  4. <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/3.jpg" width="250"/>
-  5. <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/4.jpg" width="250"/>
-  6. <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/5.jpg" width="250"/>
-  7. <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/7.jpg" width="250"/>
+ <div class="container">
+  <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/6.jpg" width="250"/>
+  <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/1.jpg" width="250"/>
+  <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/2.jpg" width="250"/>
+  <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/3.jpg" width="250"/>
+  <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/4.jpg" width="250"/>
+  <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/5.jpg" width="250"/>
+  <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/7.jpg" width="250"/>
+</div>
 </details>
