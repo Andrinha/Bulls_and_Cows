@@ -248,6 +248,7 @@ class GameActivity : AppCompatActivity() {
         viewModel.bulls.observe(this){
             if (it == "4") {
                 showRetryAlert(getString(R.string.win))
+                viewModel.timer?.cancel()
                 if (!viewModel.isRecordWrite) {
                     insertDataToDatabase()
                     viewModel.isRecordWrite = true

@@ -20,6 +20,7 @@ class GameViewModel: ViewModel() {
     var isRunning = false
     var maxAttempts = 0
     var isRecordWrite = false
+    var timer: CountDownTimer? = null
 
     init {
         newSecret()
@@ -29,7 +30,7 @@ class GameViewModel: ViewModel() {
         if (timeMillis <= 0 || isRunning)
             return
 
-        object : CountDownTimer(timeMillis, 20) {
+        timer = object: CountDownTimer(timeMillis, 17) {
 
             override fun onTick(millisUntilFinished: Long) {
                 time.value = dateFormatter(millisUntilFinished)
