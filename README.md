@@ -19,7 +19,13 @@
 
 <details>
   <summary>Скриншоты</summary>
- 
-  1. A numbered
-  2. list
+ <div class="container">
+  <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/6.jpg" width="250"/>
+  <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/1.jpg" width="250"/>
+  <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/2.jpg" width="250"/>
+  <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/3.jpg" width="250"/>
+  <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/4.jpg" width="250"/>
+  <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/5.jpg" width="250"/>
+  <img src="https://github.com/Andrinha/Bulls_and_Cows/blob/main/app/src/main/java/screenshots/7.jpg" width="250"/>
+</div>
 </details>
