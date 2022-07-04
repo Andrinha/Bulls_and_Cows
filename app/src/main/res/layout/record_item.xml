@@ -14,7 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="1dp"
-            app:cardCornerRadius="4dp"
+            app:cardCornerRadius="10dp"
+            app:contentPadding="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,34 +24,56 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/text_id"
-                    style="@style/recycler_text_style"
-                    android:layout_weight="1"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/text_name"
-                    style="@style/recycler_text_style"
-                    android:layout_weight="3"/>
+                    <TextView
+                        android:id="@+id/text_id"
+                        style="@style/recycler_text_style"
+                        android:layout_width="wrap_content"
+                        android:text="id" />
 
-                <TextView
-                    android:id="@+id/text_attempts"
-                    style="@style/recycler_text_style"
-                    android:layout_weight="3"/>
+                    <TextView
+                        android:id="@+id/text_attempts"
+                        style="@style/recycler_text_style"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="Attempts: 123" />
 
-                <TextView
-                    android:id="@+id/text_time"
-                    style="@style/recycler_text_style"
-                    android:layout_weight="3"/>
+                    <TextView
+                        android:id="@+id/text_time"
+                        style="@style/recycler_text_style"
+                        android:layout_width="wrap_content"
+                        android:gravity="end"
+                        android:text="Time: 01:23:45" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text_name"
+                        style="@style/recycler_text_style"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:text="player_name"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/text_date"
+                        style="@style/recycler_text_style"
+                        android:layout_width="wrap_content"
+                        android:text="@string/record_test_date"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
             </LinearLayout>
 
 

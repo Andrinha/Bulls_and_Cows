@@ -15,6 +15,8 @@ import com.fit.bullsandcows.data.Attempt
 import com.fit.bullsandcows.data.Record
 import com.fit.bullsandcows.data.RecordDatabase
 import com.fit.bullsandcows.databinding.ActivityGameBinding
+import com.fit.bullsandcows.utils.toDateFormat
+import com.fit.bullsandcows.utils.toTimeFormat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 
@@ -42,7 +44,7 @@ class GameActivity : AppCompatActivity() {
                 binding.restrictionsLayout.visibility = View.VISIBLE
                 if (!viewModel.isRunning) {
                     val time = prefs.getString("time", "-1")
-                    viewModel.time.value = viewModel.dateFormatter(time!!.toLong())
+                    viewModel.time.value = (time!!.toLong().toTimeFormat())
                 }
             }
         }
@@ -214,7 +216,12 @@ class GameActivity : AppCompatActivity() {
         val attempts = viewModel.attempts.value!! + 1
 
         // Create Record Object
-        val record = Record(0, name, viewModel.dateFormatter(time), attempts.toString())
+        val record = Record(
+            0,
+            name,
+            time.toTimeFormat(),
+            attempts.toString(),
+            System.currentTimeMillis().toDateFormat())
         // Add Data to Database
         addRecord(record)
     }

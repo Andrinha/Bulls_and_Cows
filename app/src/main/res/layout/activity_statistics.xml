@@ -10,43 +10,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_12_light"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         tools:context=".ui.statistics.StatisticsActivity">
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/recycle_header"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/text_id"
-                style="@style/recycler_text_style"
-                android:layout_weight="1"
-                android:text="@string/n" />
-
-            <TextView
-                android:id="@+id/text_name"
-                style="@style/recycler_text_style"
-                android:layout_weight="3"
-                android:text="Name" />
-
-            <TextView
-                android:id="@+id/text_attempts"
-                style="@style/recycler_text_style"
-                android:layout_weight="3"
-                android:text="Attempts" />
-
-            <TextView
-                android:id="@+id/text_time"
-                style="@style/recycler_text_style"
-                android:layout_weight="3"
-                android:text="Time" />
-
-        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_record"
@@ -56,7 +23,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

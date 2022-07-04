@@ -15,6 +15,9 @@
     <string name="cancel">Cancel</string>
     <string name="defeat">You lose!</string>
     <string name="win">You won!🎊🥳🎉</string>
+    <string name="record_attempts">Attempts: %1$d</string>
+    <string name="record_time">Time: %1$d</string>
+    <string name="record_test_date">01/01/1970</string>
 
     <!-- Preference Screen -->
     <string name="restrictions_header">Restrictions</string>

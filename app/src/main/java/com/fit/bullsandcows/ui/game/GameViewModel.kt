@@ -3,7 +3,7 @@ package com.fit.bullsandcows.ui.game
 import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.text.SimpleDateFormat
+import com.fit.bullsandcows.utils.toTimeFormat
 import java.util.*
 
 class GameViewModel: ViewModel() {
@@ -33,21 +33,15 @@ class GameViewModel: ViewModel() {
         timer = object: CountDownTimer(timeMillis, 17) {
 
             override fun onTick(millisUntilFinished: Long) {
-                time.value = dateFormatter(millisUntilFinished)
+                time.value = millisUntilFinished.toTimeFormat()
                 isRunning = true
             }
 
             override fun onFinish() {
-                time.value = dateFormatter(0)
+                val t = 0L
+                time.value = t.toTimeFormat()
             }
         }.start()
-    }
-
-    fun dateFormatter(milliseconds: Long): String {
-        return if (milliseconds > 60000)
-            SimpleDateFormat("mm:ss:SS", Locale.getDefault()).format(Date(milliseconds)).toString()
-        else
-            SimpleDateFormat("ss:SS", Locale.getDefault()).format(Date(milliseconds)).toString()
     }
 
     // Generate random number
@@ -58,6 +52,7 @@ class GameViewModel: ViewModel() {
             sb.append(digits[i])
         }
         secret.value = sb.toString()
+        //secret.value = "1234"
     }
 
     fun getHint() {
@@ -85,3 +80,4 @@ class GameViewModel: ViewModel() {
         isRecordWrite = false
     }
 }
+

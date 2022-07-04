@@ -9,5 +9,6 @@ data class Record (
     val recordId: Int,
     val name: String,
     val time: String,
-    val attempts: String
+    val attempts: String,
+    val date: String
 )
